@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
-        }     }
+        }
+    }
     
     @IBOutlet weak var flipCountLabel: UILabel!
     
@@ -24,14 +25,14 @@ class ViewController: UIViewController {
         flipCount += 1
         if let cardNumber = cardButtons.index(of: sender) {
             game.chooseCard(at: cardNumber)
-            upDateViewFromModel()
+            updateViewFromModel()
             print("cardNumber = \(cardNumber)")
         } else {
             print("Chosen card was not in cardButtons")
         }
     }
     
-    func upDateViewFromModel() {
+    func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
