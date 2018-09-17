@@ -9,9 +9,9 @@
 import Foundation
 
 class Concentration {
-    var cards =  [Card]() // 初始化card数组
+    private(set) var cards =  [Card]() // 初始化card数组
     
-    var indexOfOneAndOnlyFaceUpCard: Int? {
+    private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             var foundIndex: Int?
             for index in cards.indices {
@@ -34,6 +34,7 @@ class Concentration {
     
     func chooseCard(at index: Int) {
         print("chosen index: \(index)")
+        assert(cards.indices.contains(index), "chosen index not in the range")
         if !cards[index].isMatched {
             if let matchIndex = indexOfOneAndOnlyFaceUpCard {
                 if matchIndex != index {
@@ -56,10 +57,16 @@ class Concentration {
         }
 
         for i in 0..<2*numberOfPairsOfCards {
-            let currentRandom = Int(arc4random_uniform(UInt32(2*numberOfPairsOfCards-1)))
+            let currentRandom = (2*numberOfPairsOfCards-1).arc4random
             let cardCurrent = cards[i]
             cards[i] = cards[currentRandom]
             cards[currentRandom] = cardCurrent
          }
+    }
+}
+
+extension Int {
+    var arc4random: Int {
+        return Int(arc4random_uniform(UInt32(self)))
     }
 }
