@@ -9,6 +9,8 @@
 import Foundation
 
 struct PlayingCard: CustomStringConvertible {
+    // CustomStringConvertible is used to print out the value, easy to
+    // check or debug when coding
     var description: String {
         return "\(rank)\(suit)"
     }
@@ -16,16 +18,18 @@ struct PlayingCard: CustomStringConvertible {
     var suit: Suit
     var rank: Rank
     
-    enum Suit: String {
+    enum Suit: String, CustomStringConvertible {
         case spades = "♠️"
         case hearts = "♥️"
         case diamands = "♣️"
         case clubs = "♦️"
         
         static var all = [Suit.spades,.hearts,.diamands,.clubs]
+        
+        var description: String { return rawValue }
     }
     
-    enum Rank {
+    enum Rank: CustomStringConvertible {
         case ace
         case face(String)
         case numeric(Int)
@@ -35,8 +39,8 @@ struct PlayingCard: CustomStringConvertible {
             case .ace: return 1
             case .numeric(let pips): return pips
             case .face(let kind) where kind == "J": return 11
-            case .face(let kind) where kind == "J": return 12
-            case .face(let kind) where kind == "J": return 13
+            case .face(let kind) where kind == "Q": return 12
+            case .face(let kind) where kind == "K": return 13
             default: return 0
             }
         }
@@ -48,6 +52,14 @@ struct PlayingCard: CustomStringConvertible {
             }
             allRanks += [Rank.face("J"),.face("Q"),.face("K")]
             return allRanks
+        }
+        
+        var description: String {
+            switch self {
+            case .ace: return "A"
+            case .numeric(let pips): return String(pips)
+            case .face(let kind): return kind
+            }
         }
     }
 }
