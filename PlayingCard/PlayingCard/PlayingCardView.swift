@@ -8,12 +8,16 @@
 
 import UIKit
 
+@IBDesignable
 class PlayingCardView: UIView {
     
     // setNeedsDisplay()会调用draw方法
     // setNeedsLayout()会调用layoutSubviews方法
+    @IBInspectable
     var rank: Int = 5 { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    @IBInspectable
     var suit: String = "♥️" { didSet { setNeedsDisplay(); setNeedsLayout() } }
+    @IBInspectable
     var isFaceUP: Bool = true { didSet { setNeedsDisplay(); setNeedsLayout() } }
     
     private lazy var upperLeftCornerLabel = createCornerLabel()
@@ -114,10 +118,16 @@ class PlayingCardView: UIView {
         UIColor.white.setFill()
         roundRect.fill()
         
-        if let faceCardImage = UIImage(named: rankString+suit) {
-            faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+        if isFaceUP {
+            if let faceCardImage = UIImage(named: rankString+suit, in: Bundle(for: self.classForCoder), compatibleWith: traitCollection) {
+                faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+            } else {
+                drawPips()
+            }
         } else {
-            drawPips()
+            if let cardBackImage = UIImage(named: "cardBack", in: Bundle(for: self.classForCoder), compatibleWith: traitCollection) {
+                cardBackImage.draw(in: bounds)
+            }
         }
 //        let path = UIBezierPath()
 //        path.addArc(withCenter: CGPoint(x: bounds.midX, y: bounds.midY), radius: 100.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
