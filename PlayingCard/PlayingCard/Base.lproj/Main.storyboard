@@ -19,7 +19,7 @@
                         <subviews>
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CjH-1T-mHr" customClass="PlayingCardView" customModule="PlayingCard" customModuleProvider="target">
                                 <rect key="frame" x="335" y="16" width="226" height="361"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" priority="750" constant="800" id="8IB-uP-iWv"/>
                                     <constraint firstAttribute="width" secondItem="CjH-1T-mHr" secondAttribute="height" multiplier="5:8" id="DDW-N9-A7b"/>
